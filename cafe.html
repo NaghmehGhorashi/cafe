@@ -1,0 +1,657 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+    <style>
+      canvas#blurredDoor {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="blurredDoor" width="512" height="1024"></canvas>
+
+    <a-scene>
+      <!-- بارگذاری تکسچرها -->
+      <a-assets>
+        <img id="parquetTexture" src="Wood.jpg" crossorigin="anonymous" />
+        <img id="wallTexture" src="wallpaper.jpg" crossorigin="anonymous" />
+        <img id="windowTexture" src="window.jpg" crossorigin="anonymous" />
+        <img id="wallTexture2" src="wallpaper2.jpg" crossorigin="anonymous" />
+      </a-assets>
+      <a-entity
+        gltf-model="doorway.glb"
+        position="3 0 -5.80"
+        scale="4 4 4"
+        rotation="0 180 0"
+      ></a-entity>
+      <!--samara-->
+      <a-entity
+        gltf-model="samara.glb"
+        position="14 1.5 -2"
+        scale="0.5 0.5 0.5"
+        rotation="0 -90 0"
+        animation="property: position; to: 18 1 -2; dir: alternate; dur: 4000; loop: true"
+      ></a-entity>
+      <a-light
+        type="point"
+        position="9.44 3.1 3"
+        intensity="1.5"
+        distance="10"
+        decay="2"
+        color="#ffffff"
+      ></a-light>
+      <a-entity
+        gltf-model="scaryGuy.glb"
+        position="9.44 2.1 3"
+        scale="2 2 2"
+        rotation="0 90 0"
+      ></a-entity>
+
+      <a-entity
+        gltf-model="scaryHead.glb"
+        position="9.44 -4 11.5"
+        scale="2 2 2"
+        rotation="0 120 0"
+        animation="property: position; to: 9.44 0.5 11.5; dir: alternate; dur: 2000; loop: true"
+      ></a-entity>
+      <a-light
+        type="point"
+        position="10.44 2.1 3"
+        intensity="1.5"
+        distance="10"
+        decay="2"
+        color="#ffffff"
+      ></a-light>
+
+      <a-entity
+        gltf-model="scary_tree.glb"
+        position="5.89 2.5 2.82"
+        scale="1.5 1.5 1.5"
+        rotation="0 -90 0"
+      ></a-entity>
+      <!-- کف -->
+      <a-plane
+        position="0 0 0"
+        rotation="-90 0 0"
+        width="12"
+        height="12"
+        material="src: #parquetTexture; repeat: 4 4; roughness: 1; metalness: 0.2; color: #ffffff; opacity: 0.7; transparent: true"
+      ></a-plane>
+
+      <!-- دیوارها (بزرگتر شده) -->
+      <a-plane
+        position="0 2.5 -6"
+        rotation="0 0 0"
+        width="12"
+        height="5"
+        material="src: #wallTexture; repeat: 4 2"
+      ></a-plane>
+      <a-plane
+        position="0 2.5 6"
+        rotation="0 180 0"
+        width="12"
+        height="5"
+        material="src: #wallTexture; repeat: 4 2"
+      ></a-plane>
+      <a-plane
+        position="-6 2.5 0"
+        rotation="0 90 0"
+        width="12"
+        height="5"
+        material="src: #wallTexture; repeat: 4 2"
+      ></a-plane>
+
+      <a-plane
+        position="6 2.5 -5"
+        rotation="0 -90 0"
+        width="2"
+        height="5"
+        material="src: #wallTexture; repeat: 4 2"
+      ></a-plane>
+      <a-plane
+        position="6 2.5 3"
+        rotation="0 -90 0"
+        width="6"
+        height="5"
+        material="src: #wallTexture; repeat: 4 2"
+      ></a-plane>
+      <!-- قرنیز دیوار جلو -->
+      <a-box
+        position="0 0.1 -6"
+        width="12"
+        height="0.2"
+        depth="0.05"
+        color="#5a3e1b"
+      ></a-box>
+
+      <!-- قرنیز دیوار عقب -->
+      <a-box
+        position="0 0.1 6"
+        width="12"
+        height="0.2"
+        depth="0.05"
+        color="#5a3e1b"
+      ></a-box>
+
+      <!-- قرنیز دیوار چپ -->
+      <a-box
+        position="-6 0.1 0"
+        width="12"
+        height="0.2"
+        depth="0.05"
+        rotation="0 90 0"
+        color="#5a3e1b"
+      ></a-box>
+
+      <!-- قرنیز دیوار راست - بخش اول (قبل از در) -->
+      <a-box
+        position="6 0.1 -5"
+        width="2"
+        height="0.2"
+        depth="0.05"
+        rotation="0 -90 0"
+        color="#5a3e1b"
+      ></a-box>
+
+      <!-- قرنیز دیوار راست - بخش دوم (بعد از در) -->
+      <a-box
+        position="6 0.1 3"
+        width="6"
+        height="0.2"
+        depth="0.05"
+        rotation="0 -90 0"
+        color="#5a3e1b"
+      ></a-box>
+
+      <!-- سقف -->
+      <a-plane
+        position="0 5 0"
+        rotation="90 0 0"
+        width="12"
+        height="12"
+        color="#ffffff"
+      ></a-plane>
+
+      <!-- پنجره -->
+      <a-plane
+        position="0 2.5 -5.99"
+        rotation="0 0 0"
+        width="2"
+        height="2"
+        material="src: #windowTexture; transparent: true"
+      ></a-plane>
+      <!-- قاب چوبی دور پنجره (فرانسوی) -->
+
+      <!-- قاب بیرونی -->
+      <a-box
+        position="0 3.5 -5.99"
+        depth="0.01"
+        height="0.1"
+        width="2.1"
+        color="#8B4513"
+      ></a-box>
+      <!-- بالا -->
+      <a-box
+        position="0 1.5 -5.99"
+        depth="0.01"
+        height="0.1"
+        width="2.1"
+        color="#8B4513"
+      ></a-box>
+      <!-- پایین -->
+      <a-box
+        position="-1.05 2.5 -5.99"
+        depth="0.01"
+        height="2.1"
+        width="0.1"
+        color="#8B4513"
+      ></a-box>
+      <!-- چپ -->
+      <a-box
+        position="1.05 2.5 -5.99"
+        depth="0.01"
+        height="2.1"
+        width="0.1"
+        color="#8B4513"
+      ></a-box>
+      <!-- راست -->
+
+      <!-- میله‌های تقسیم‌کننده -->
+      <a-box
+        position="0 2.5 -5.99"
+        depth="0.01"
+        height="2.1"
+        width="0.05"
+        color="#8B4513"
+      ></a-box>
+      <!-- عمودی وسط -->
+      <a-box
+        position="-0.5 2.5 -5.99"
+        depth="0.01"
+        height="2.1"
+        width="0.02"
+        color="#8B4513"
+      ></a-box>
+      <!-- عمودی چپ -->
+      <a-box
+        position="0.5 2.5 -5.99"
+        depth="0.01"
+        height="2.1"
+        width="0.02"
+        color="#8B4513"
+      ></a-box>
+      <!-- عمودی راست -->
+      <a-box
+        position="0 3 -5.99"
+        depth="0.01"
+        height="0.02"
+        width="2.1"
+        color="#8B4513"
+      ></a-box>
+      <!-- افقی بالا -->
+      <a-box
+        position="0 2 -5.99"
+        depth="0.01"
+        height="0.02"
+        width="2.1"
+        color="#8B4513"
+      ></a-box>
+      <!-- افقی پایین -->
+
+      <!-- نور -->
+      <!-- <a-entity
+        light="type: ambient; color: #dddddd; intensity: 0.3"
+      ></a-entity> -->
+      <a-entity
+        light="type: point; intensity: 0.2; distance: 50; decay: 2; color: #f0e6d2"
+        position="0 4 0"
+      ></a-entity>
+
+      <!-- دوربین -->
+      <a-entity
+        id="cameraRig"
+        position="0 1.6 4"
+        movement-controls="speed: 0.1"
+      >
+        <a-camera>
+          <a-cursor
+            id="cursor"
+            fuse="true"
+            fuse-timeout="500"
+            material="color: white; shader: flat"
+          ></a-cursor>
+        </a-camera>
+      </a-entity>
+
+      <!-- مدل‌ها -->
+      <a-entity
+        gltf-model="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/SheenChair/glTF-Binary/SheenChair.glb"
+        position="-5 0 -2"
+        rotation="0 90 0"
+        scale="2 2 2"
+      ></a-entity>
+      <a-entity
+        gltf-model="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/SheenChair/glTF-Binary/SheenChair.glb"
+        position="3 0 5"
+        rotation="0 180 0"
+        scale="2 2 2"
+      ></a-entity>
+      <a-entity
+        gltf-model="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/SheenChair/glTF-Binary/SheenChair.glb"
+        position="5 0 5"
+        rotation="0 180 0"
+        scale="2 2 2"
+      ></a-entity>
+      <a-entity
+        gltf-model="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/SheenChair/glTF-Binary/SheenChair.glb"
+        position="3 0 2"
+        rotation="0 0 0"
+        scale="2 2 2"
+      ></a-entity>
+      <a-entity
+        gltf-model="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/SheenChair/glTF-Binary/SheenChair.glb"
+        position="5 0 2"
+        rotation="0 0 0"
+        scale="2 2 2"
+      ></a-entity>
+      <a-entity
+        gltf-model="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/SheenChair/glTF-Binary/SheenChair.glb"
+        position="-5.000 0 2.75"
+        rotation="0 90 0"
+        scale="2 2 2"
+      ></a-entity>
+      <a-entity position="0 0 0">
+        <!-- پایه‌ی میز کروی -->
+        <a-sphere
+          position="-3.14 0.4 -2.2"
+          radius="0.5"
+          material="src: #wallTexture2; repeat: 2 2"
+          segments-height="18"
+          segments-width="36"
+        >
+        </a-sphere>
+
+        <!-- شیشه‌ی روی میز -->
+        <a-cylinder
+          position="-3 0.9 -2.2"
+          radius="0.65"
+          height="0.02"
+          color="#ffffff"
+          material="opacity: 0.3; transparent: true; roughness: 0.1; metalness: 0.8"
+        >
+        </a-cylinder>
+      </a-entity>
+      <a-entity position="0 0 0">
+        <!-- پایه‌ی میز بیضی‌شده -->
+        <a-sphere
+          position="3.5  0.4 3.5"
+          radius="0.5"
+          scale="1.3 1 0.8"
+          material="src: #wallTexture2; repeat: 2 2"
+          segments-height="18"
+          segments-width="36"
+        ></a-sphere>
+
+        <!-- شیشه‌ی روی میز بیضی‌شده -->
+        <a-cylinder
+          position="3.5 0.9 3.5"
+          radius="0.65"
+          height="0.02"
+          scale="1.3 1 0.8"
+          color="#ffffff"
+          material="opacity: 0.3; transparent: true; roughness: 0.1; metalness: 0.8"
+        ></a-cylinder>
+      </a-entity>
+
+      <a-entity
+        gltf-model="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/SheenChair/glTF-Binary/SheenChair.glb"
+        position="-5.000 0 4.649"
+        rotation="0 90 0"
+        scale="2 2 2"
+      ></a-entity>
+
+      <a-box
+        position="-5 0.5 0"
+        depth="1"
+        height="1"
+        width="1"
+        material="color: #888888"
+      ></a-box>
+
+      <a-entity
+        gltf-model="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/IridescenceLamp/glTF-Binary/IridescenceLamp.glb"
+        position="-5 1 0"
+        scale="2.5 2.5 2.5"
+      ></a-entity>
+      <!-- نور نقطه‌ای -->
+      <a-light
+        type="point"
+        color="#fffacd"
+        intensity="1.5"
+        distance="10"
+        position="-5 2 0"
+      >
+      </a-light>
+      <!-- هاله‌ی نور -->
+      <a-sphere
+        position="-5 1.5 0"
+        radius="0.2"
+        color="#ffffcc"
+        material="emissive: #ffffcc; emissiveIntensity: 1; opacity: 0.3; transparent: true"
+      >
+      </a-sphere>
+
+      <a-entity
+        gltf-model="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/GlamVelvetSofa/glTF-Binary/GlamVelvetSofa.glb"
+        position="-2.5 -0.21 -4.81"
+        scale="2 2 2"
+      ></a-entity>
+
+      <a-entity
+        gltf-model="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/AntiqueCamera/glTF-Binary/AntiqueCamera.glb"
+        position="2 0 -5"
+        scale="0.4 0.4 0.4"
+      ></a-entity>
+
+      <a-assets>
+        <img id="door" src="door.jpg" crossorigin="anonymous" />
+      </a-assets>
+
+      <!-- راهرو -->
+
+      <a-plane
+        position="7.5 0 -2"
+        rotation="-90 0 0"
+        width="3"
+        height="4"
+        material="src: #parquetTexture; repeat: 1 2; roughness: 1; metalness: 0.2"
+      ></a-plane>
+
+      <a-plane
+        position="7.5 5 -2"
+        rotation="90 0 0"
+        width="3"
+        height="4"
+        color="#ffffff"
+      ></a-plane>
+      <!-- دیوار سمت عقب -->
+      <a-plane
+        position="7.5 2.5 -4"
+        rotation="0 0 0"
+        width="3"
+        height="5"
+        material="src: #wallTexture; repeat: 2 2"
+      ></a-plane>
+
+      <!-- دیوار سمت جلو -->
+      <a-plane
+        position="7.5 2.5 0"
+        rotation="0 180 0"
+        width="3"
+        height="5"
+        material="src: #wallTexture; repeat: 2 2"
+      ></a-plane>
+
+      <!-- اتاق دوم (ابعاد کوچک‌تر 6x6) -->
+      <a-plane
+        position="12 0 -2"
+        rotation="-90 0 0"
+        width="6"
+        height="6"
+        material="src: #parquetTexture; repeat: 2 2; roughness: 1; metalness: 0.2"
+      ></a-plane>
+
+      <!-- دیوارهای اتاق دوم -->
+      <a-plane
+        position="12 2.5 -5"
+        rotation="0 0 0"
+        width="6"
+        height="5"
+        material="src: #wallTexture2; repeat: 2 2"
+      ></a-plane>
+
+      <a-plane
+        position="9 2.5 0.5"
+        rotation="0 90 0"
+        width="1"
+        height="5"
+        material="src: #wallTexture2; repeat: 2 2"
+      ></a-plane>
+      <a-plane
+        position="9 2.5 -4.5"
+        rotation="0 90 0"
+        width="1"
+        height="5"
+        material="src: #wallTexture2; repeat: 2 2"
+      ></a-plane>
+      <!-- دیوار مشترک با راهرو (در سمت چپ) -->
+      <a-plane
+        position="15 2.5 -2"
+        rotation="0 -90 0"
+        width="6"
+        height="5"
+        color="black"
+      ></a-plane>
+
+      <!-- سقف اتاق دوم -->
+      <a-plane
+        position="12 5 -2"
+        rotation="90 0 0"
+        width="6"
+        height="6"
+        color="#ffffff"
+      ></a-plane>
+
+      <!-- اتاق سوم-->
+
+      <a-entity position="14 -3 6.5" rotation="0 90 0">
+        <!-- دیوار جلو -->
+        <a-plane
+          position="0 5.5 -5.5"
+          rotation="0 0 0"
+          width="11"
+          height="5"
+          material="src: #wallTexture; repeat: 4 2"
+        ></a-plane>
+
+        <!-- دیوار عقب -->
+        <a-plane
+          position="0 5.5 5.5"
+          rotation="0 180 0"
+          width="11"
+          height="5"
+          material="src: #wallTexture; repeat: 4 2"
+        ></a-plane>
+
+        <!-- دیوار چپ -->
+        <a-plane
+          position="-5.5 5.5 0"
+          rotation="0 90 0"
+          width="11"
+          height="5"
+          material="src: #wallTexture; repeat: 4 2"
+        ></a-plane>
+
+        <!-- دیوار راست: بخش اول -->
+        <a-plane
+          position="5.5 5.5 -5"
+          rotation="0 -90 0"
+          width="2"
+          height="5"
+          material="src: #wallTexture; repeat: 4 2"
+        ></a-plane>
+
+        <!-- دیوار راست: بخش دوم -->
+        <a-plane
+          position="5.5 5.5 3"
+          rotation="0 -90 0"
+          width="6"
+          height="5"
+          material="src: #wallTexture; repeat: 4 2"
+        ></a-plane>
+
+        <!-- قرنیز دیوار جلو -->
+        <a-box
+          position="0 3.1 -5.5"
+          width="11"
+          height="0.2"
+          depth="0.05"
+          color="#5a3e1b"
+        ></a-box>
+
+        <!-- قرنیز دیوار عقب -->
+        <a-box
+          position="0 3.1 5.5"
+          width="11"
+          height="0.2"
+          depth="0.05"
+          color="#5a3e1b"
+        ></a-box>
+
+        <!-- قرنیز دیوار چپ -->
+        <a-box
+          position="-5.5 3.1 0"
+          width="11"
+          height="0.2"
+          depth="0.05"
+          rotation="0 90 0"
+          color="#5a3e1b"
+        ></a-box>
+
+        <!-- قرنیز دیوار راست - بخش اول -->
+        <a-box
+          position="5.5 3.1 -5"
+          width="2"
+          height="0.2"
+          depth="0.05"
+          rotation="0 -90 0"
+          color="#5a3e1b"
+        ></a-box>
+
+        <!-- قرنیز دیوار راست - بخش دوم -->
+        <a-box
+          position="5.5 3.1 3"
+          width="6"
+          height="0.2"
+          depth="0.05"
+          rotation="0 -90 0"
+          color="#5a3e1b"
+        ></a-box>
+
+        <!-- سقف -->
+        <a-plane
+          position="0 8 0"
+          rotation="90 0 0"
+          width="11"
+          height="11"
+          color="#ffffff"
+        ></a-plane>
+
+        <!-- کف -->
+        <a-plane
+          position="0 3 0"
+          rotation="-90 0 0"
+          width="11"
+          height="11"
+          material="src: #parquetTexture; repeat: 4 4; roughness: 1; metalness: 0.2; color: #ffffff; opacity: 0.7; transparent: true"
+        ></a-plane>
+      </a-entity>
+
+      <!-- اسکریپت‌ها -->
+      <script>
+        AFRAME.registerComponent("blurred-door", {
+          init: function () {
+            const originalImage = document.getElementById("door");
+            const canvas = document.getElementById("blurredDoor");
+            const ctx = canvas.getContext("2d");
+
+            originalImage.onload = () => {
+              ctx.filter = "blur(8px)";
+              ctx.drawImage(originalImage, 0, 0, canvas.width, canvas.height);
+
+              const blurredTexture = new THREE.Texture(canvas);
+              blurredTexture.needsUpdate = true;
+
+              // اعمال به یک المنت خاص (مثلاً یک در بلور شده)
+              const blurredDoor = document.createElement("a-plane");
+              blurredDoor.setAttribute("position", "0 2.5 -5.98");
+              blurredDoor.setAttribute("rotation", "0 0 0");
+              blurredDoor.setAttribute("width", "2");
+              blurredDoor.setAttribute("height", "4");
+              blurredDoor.setAttribute("material", {
+                shader: "flat",
+                src: blurredTexture,
+                transparent: true,
+              });
+
+              this.el.sceneEl.appendChild(blurredDoor);
+            };
+          },
+        });
+
+        // فراخوانی کامپوننت
+        document.querySelector("a-scene").setAttribute("blurred-door", "");
+      </script>
+    </a-scene>
+  </body>
+</html>
