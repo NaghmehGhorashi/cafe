@@ -3,16 +3,48 @@
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/aframe-joystick-component@^1.0.0/dist/aframe-joystick-component.min.js"></script>
-    <style></style>
+    <
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+        font-family: sans-serif;
+      }
+
+      #startOverlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.9);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+      }
+
+      #startButton {
+        padding: 1em 2em;
+        font-size: 1.5em;
+        background-color: #4cccd9;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        color: white;
+      }
+    </style>
   </head>
   <body>
     <a-scene>
-      <a-sound
-        src="scary-sound.mp3"
-        autoplay="true"
-        loop="true"
+      <div id="startOverlay">
+        <button id="startButton">PLAY...</button>
+      </div>
+      <a-entity
+        id="bgSound"
+        sound="src: https://cdn.aframe.io/basic-guide/audio/backgroundnoise.wav; loop: true; autoplay: true"
         position="0 1.6 0"
-      ></a-sound>
+      ></a-entity>
 
       <!-- دوربین -->
       <a-entity
@@ -38,7 +70,6 @@
         <img id="wallTexture" src="wallpaper.jpg" crossorigin="anonymous" />
         <img id="windowTexture" src="window.jpg" crossorigin="anonymous" />
         <img id="wallTexture2" src="wallpaper2.jpg" crossorigin="anonymous" />
-        <img id="door" src="door.jpg" crossorigin="anonymous" />
       </a-assets>
       <a-entity
         gltf-model="doorway.glb"
@@ -156,7 +187,6 @@
           text="value: E; color: #FFD700; align: center; width: 4"
           position="-6 3.6 0.0"
           rotation="0 90 0"
-          animation="property: text.opacity; from: 0; to: 3; dur: 1000; dir: alternate; loop: true"
         >
         </a-entity>
 
@@ -688,7 +718,26 @@
       </a-entity>
 
       <!-- اسکریپت‌ها -->
-      <script></script>
+      <script>
+        const startButton = document.getElementById("startButton");
+        const startOverlay = document.getElementById("startOverlay");
+        const bgSound = document.querySelector("#bgSound");
+
+        startButton.addEventListener("click", () => {
+          // مخفی کردن لایه شروع
+          startOverlay.style.display = "none";
+
+          // اگر کامپوننت صدا آماده است، پخش کن
+          if (bgSound.components && bgSound.components.sound) {
+            bgSound.components.sound.play();
+          } else {
+            // صبر کن تا صدا لود شود
+            bgSound.addEventListener("sound-loaded", () => {
+              bgSound.components.sound.play();
+            });
+          }
+        });
+      </script>
     </a-scene>
   </body>
 </html>
