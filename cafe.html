@@ -1,22 +1,44 @@
 <html>
   <head>
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
-    <style>
-      canvas#blurredDoor {
-        display: none;
-      }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
+    <script src="https://unpkg.com/aframe-joystick-component@^1.0.0/dist/aframe-joystick-component.min.js"></script>
+    <style></style>
   </head>
   <body>
-    <canvas id="blurredDoor" width="512" height="1024"></canvas>
-
     <a-scene>
+      <a-sound
+        src="scary-sound.mp3"
+        autoplay="true"
+        loop="true"
+        position="0 1.6 0"
+      ></a-sound>
+
+      <!-- دوربین -->
+      <a-entity
+        id="player"
+        movement-controls="speed: 0.1"
+        joystick-controls="hand: right"
+        touch-controls
+        position="0 1.6 0"
+      >
+        <a-camera look-controls>
+          <a-cursor
+            id="cursor"
+            fuse="true"
+            fuse-timeout="500"
+            material="color: white; shader: flat"
+          ></a-cursor>
+        </a-camera>
+      </a-entity>
+
       <!-- بارگذاری تکسچرها -->
       <a-assets>
         <img id="parquetTexture" src="Wood.jpg" crossorigin="anonymous" />
         <img id="wallTexture" src="wallpaper.jpg" crossorigin="anonymous" />
         <img id="windowTexture" src="window.jpg" crossorigin="anonymous" />
         <img id="wallTexture2" src="wallpaper2.jpg" crossorigin="anonymous" />
+        <img id="door" src="door.jpg" crossorigin="anonymous" />
       </a-assets>
       <a-entity
         gltf-model="doorway.glb"
@@ -335,22 +357,6 @@
         position="0 4 0"
       ></a-entity>
 
-      <!-- دوربین -->
-      <a-entity
-        id="cameraRig"
-        position="0 1.6 4"
-        movement-controls="speed: 0.1"
-      >
-        <a-camera>
-          <a-cursor
-            id="cursor"
-            fuse="true"
-            fuse-timeout="500"
-            material="color: white; shader: flat"
-          ></a-cursor>
-        </a-camera>
-      </a-entity>
-
       <!-- مدل‌ها -->
       <a-entity
         gltf-model="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/SheenChair/glTF-Binary/SheenChair.glb"
@@ -480,10 +486,6 @@
         position="2 0 -5"
         scale="0.4 0.4 0.4"
       ></a-entity>
-
-      <a-assets>
-        <img id="door" src="door.jpg" crossorigin="anonymous" />
-      </a-assets>
 
       <!-- راهرو -->
 
@@ -686,40 +688,7 @@
       </a-entity>
 
       <!-- اسکریپت‌ها -->
-      <script>
-        AFRAME.registerComponent("blurred-door", {
-          init: function () {
-            const originalImage = document.getElementById("door");
-            const canvas = document.getElementById("blurredDoor");
-            const ctx = canvas.getContext("2d");
-
-            originalImage.onload = () => {
-              ctx.filter = "blur(8px)";
-              ctx.drawImage(originalImage, 0, 0, canvas.width, canvas.height);
-
-              const blurredTexture = new THREE.Texture(canvas);
-              blurredTexture.needsUpdate = true;
-
-              // اعمال به یک المنت خاص (مثلاً یک در بلور شده)
-              const blurredDoor = document.createElement("a-plane");
-              blurredDoor.setAttribute("position", "0 2.5 -5.98");
-              blurredDoor.setAttribute("rotation", "0 0 0");
-              blurredDoor.setAttribute("width", "2");
-              blurredDoor.setAttribute("height", "4");
-              blurredDoor.setAttribute("material", {
-                shader: "flat",
-                src: blurredTexture,
-                transparent: true,
-              });
-
-              this.el.sceneEl.appendChild(blurredDoor);
-            };
-          },
-        });
-
-        // فراخوانی کامپوننت
-        document.querySelector("a-scene").setAttribute("blurred-door", "");
-      </script>
+      <script></script>
     </a-scene>
   </body>
 </html>
