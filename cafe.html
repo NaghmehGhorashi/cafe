@@ -39,9 +39,16 @@
       <div id="startOverlay">
         <button id="startButton">PLAY...</button>
       </div>
+      <a-assets>
+        <img id="parquetTexture" src="Wood.jpg" crossorigin="anonymous" />
+        <img id="wallTexture" src="wallpaper.jpg" crossorigin="anonymous" />
+        <img id="windowTexture" src="window.jpg" crossorigin="anonymous" />
+        <img id="wallTexture2" src="wallpaper2.jpg" crossorigin="anonymous" />
+        <audio id="horror-sound" src="horror.mp3" preload="auto" crossorigin="anonymous"></audio>
+      </a-assets>
       <a-entity
         id="bgSound"
-        sound="src: horror.mp3; loop: true; autoplay: true"
+        sound="src: #horror-sound; loop: true; autoplay: false; positional: false"
         position="0 1.6 0"
       ></a-entity>
 
@@ -771,15 +778,19 @@
           // مخفی کردن لایه شروع
           startOverlay.style.display = "none";
 
-          // اگر کامپوننت صدا آماده است، پخش کن
-          if (bgSound.components && bgSound.components.sound) {
-            bgSound.components.sound.play();
-          } else {
-            // صبر کن تا صدا لود شود
-            bgSound.addEventListener("sound-loaded", () => {
-              bgSound.components.sound.play();
-            });
-          }
+          // پخش صدا با تاخیر کوتاه برای اطمینان از آماده بودن کامپوننت
+          setTimeout(() => {
+            if (bgSound.components && bgSound.components.sound) {
+              bgSound.components.sound.playSound();
+            } else {
+              console.error("Sound component not ready");
+            }
+          }, 100);
+        });
+
+        // اضافه کردن یک event listener برای اطمینان از بارگذاری صدا
+        bgSound.addEventListener("sound-loaded", () => {
+          console.log("Sound loaded successfully");
         });
       </script>
     </a-scene>
