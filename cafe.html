@@ -40,15 +40,16 @@
         <button id="startButton">PLAY...</button>
       </div>
       <a-assets>
+        <audio id="horror-sound" src="horror.mp3" preload="auto"></audio>
         <img id="parquetTexture" src="Wood.jpg" crossorigin="anonymous" />
         <img id="wallTexture" src="wallpaper.jpg" crossorigin="anonymous" />
         <img id="windowTexture" src="window.jpg" crossorigin="anonymous" />
         <img id="wallTexture2" src="wallpaper2.jpg" crossorigin="anonymous" />
-        <audio id="horror-sound" src="horror.mp3" preload="auto" crossorigin="anonymous"></audio>
       </a-assets>
+
       <a-entity
         id="bgSound"
-        sound="src: #horror-sound; loop: true; autoplay: false; positional: false"
+        sound="src: #horror-sound; loop: true; autoplay: false; positional: false; volume: 1"
         position="0 1.6 0"
       ></a-entity>
 
@@ -770,27 +771,39 @@
 
       <!-- اسکریپت‌ها -->
       <script>
-        const startButton = document.getElementById("startButton");
-        const startOverlay = document.getElementById("startOverlay");
-        const bgSound = document.querySelector("#bgSound");
+        window.addEventListener('load', function() {
+          const startButton = document.getElementById("startButton");
+          const startOverlay = document.getElementById("startOverlay");
+          const bgSound = document.querySelector("#bgSound");
+          const scene = document.querySelector('a-scene');
 
-        startButton.addEventListener("click", () => {
-          // مخفی کردن لایه شروع
-          startOverlay.style.display = "none";
+          scene.addEventListener('loaded', function() {
+            startButton.addEventListener("click", function() {
+              startOverlay.style.display = "none";
+              
+              // تلاش برای پخش صدا با تعامل کاربر
+              const soundComponent = bgSound.components.sound;
+              if (soundComponent) {
+                try {
+                  soundComponent.playSound();
+                  console.log("Attempting to play sound");
+                } catch (error) {
+                  console.error("Error playing sound:", error);
+                }
+              } else {
+                console.error("Sound component not found");
+              }
+            });
+          });
 
-          // پخش صدا با تاخیر کوتاه برای اطمینان از آماده بودن کامپوننت
-          setTimeout(() => {
-            if (bgSound.components && bgSound.components.sound) {
-              bgSound.components.sound.playSound();
-            } else {
-              console.error("Sound component not ready");
-            }
-          }, 100);
-        });
+          // اضافه کردن event listener‌های دیباگ
+          bgSound.addEventListener("sound-loaded", function() {
+            console.log("Sound loaded successfully");
+          });
 
-        // اضافه کردن یک event listener برای اطمینان از بارگذاری صدا
-        bgSound.addEventListener("sound-loaded", () => {
-          console.log("Sound loaded successfully");
+          bgSound.addEventListener("sound-ended", function() {
+            console.log("Sound ended");
+          });
         });
       </script>
     </a-scene>
