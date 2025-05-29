@@ -3,7 +3,6 @@
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/aframe-joystick-component@^1.0.0/dist/aframe-joystick-component.min.js"></script>
-    <
     <style>
       body {
         margin: 0;
@@ -42,7 +41,7 @@
       </div>
       <a-entity
         id="bgSound"
-        sound="src: https://cdn.aframe.io/basic-guide/audio/backgroundnoise.wav; loop: true; autoplay: true"
+        sound="src: horror.mp3; loop: true; autoplay: true"
         position="0 1.6 0"
       ></a-entity>
 
@@ -100,7 +99,12 @@
         decay="2"
         color="#ffffff"
       ></a-light>
-
+      <a-entity
+        gltf-model="spiderWeb.glb"
+        position="16.77 2.5 10"
+        scale="0.2 0.7 0.8"
+        rotation="0 120 0"
+      ></a-entity>
       <a-entity
         gltf-model="scary_tree.glb"
         position="5.89 2.5 2.82"
@@ -424,6 +428,46 @@
         rotation="0 90 0"
         scale="2 2 2"
       ></a-entity>
+      <!-- اتاق سوم فرنیچر-->
+      <a-entity
+        gltf-model="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/SheenChair/glTF-Binary/SheenChair.glb"
+        position="12.77 0 5"
+        rotation="0 0 0"
+        scale="2 2 2"
+      ></a-entity>
+      <a-entity
+        gltf-model="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/SheenChair/glTF-Binary/SheenChair.glb"
+        position="10.77 0 7"
+        rotation="0 90 0"
+        scale="2 2 2"
+      ></a-entity>
+      <a-entity
+        gltf-model="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/SheenChair/glTF-Binary/SheenChair.glb"
+        position="14.77 0 7"
+        rotation="0 -90 0"
+        scale="2 2 2"
+      ></a-entity>
+      <a-entity position="0 0 0">
+        <!-- پایه‌ی میز کروی -->
+        <a-sphere
+          position="12.77 0.4 7"
+          radius="0.5"
+          material="src: #wallTexture2; repeat: 2 2"
+          segments-height="18"
+          segments-width="36"
+        >
+        </a-sphere>
+
+        <!-- شیشه‌ی روی میز -->
+        <a-cylinder
+          position="12.77 0.9 7"
+          radius="0.65"
+          height="0.02"
+          color="#ffffff"
+          material="opacity: 0.3; transparent: true; roughness: 0.1; metalness: 0.8"
+        >
+        </a-cylinder>
+      </a-entity>
       <a-entity position="0 0 0">
         <!-- پایه‌ی میز کروی -->
         <a-sphere
