@@ -5,6 +5,55 @@
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/aframe-joystick-component@^1.0.0/dist/aframe-joystick-component.min.js"></script>
+    <script>
+      AFRAME.registerComponent('custom-look-controls', {
+        init: function () {
+          var el = this.el;
+          var sceneEl = el.sceneEl;
+          
+          // تنظیم اولیه کنترل‌ها
+          el.setAttribute('look-controls', {
+            enabled: true,
+            mouseEnabled: true,
+            touchEnabled: true,
+            magicWindowTrackingEnabled: true,
+            pointerLockEnabled: false,
+            reverseMouseDrag: false
+          });
+
+          // اضافه کردن event listener برای حالت VR
+          sceneEl.addEventListener('enter-vr', function () {
+            console.log('Entered VR mode');
+            el.setAttribute('look-controls', {
+              enabled: true,
+              mouseEnabled: true,
+              touchEnabled: true,
+              magicWindowTrackingEnabled: true,
+              pointerLockEnabled: false,
+              reverseMouseDrag: false
+            });
+          });
+
+          // اضافه کردن event listener برای حالت عادی
+          sceneEl.addEventListener('exit-vr', function () {
+            console.log('Exited VR mode');
+            el.setAttribute('look-controls', {
+              enabled: true,
+              mouseEnabled: true,
+              touchEnabled: true,
+              magicWindowTrackingEnabled: true,
+              pointerLockEnabled: false,
+              reverseMouseDrag: false
+            });
+          });
+
+          // اضافه کردن event listener برای موس
+          document.addEventListener('mousemove', function (evt) {
+            console.log('Mouse moved:', evt.movementX, evt.movementY);
+          });
+        }
+      });
+    </script>
     <style>
       body {
         margin: 0;
@@ -37,7 +86,7 @@
     </style>
   </head>
   <body>
-    <a-scene fog="type: linear; color: #AAB; far: 9; near: 0">
+    <a-scene vr-mode-ui="enabled: true" fog="type: linear; color: #AAB; far: 9; near: 0">
       <div id="startOverlay">
         <button id="startButton">PLAY...</button>
       </div>
@@ -72,7 +121,7 @@
         position="0 1.6 0"
         wasd-controls="acceleration: 20"
       >
-        <a-camera look-controls="pointerLockEnabled: true">
+        <a-camera custom-look-controls>
           <a-cursor
             id="cursor"
             fuse="true"
