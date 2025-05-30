@@ -1,5 +1,7 @@
+<!DOCTYPE html>
 <html>
   <head>
+    <title>Haunted Cafe VR</title>
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
     <script src="https://unpkg.com/aframe-joystick-component@^1.0.0/dist/aframe-joystick-component.min.js"></script>
@@ -49,8 +51,8 @@
 
       <a-entity
         id="bgSound"
-        sound="src: #horror-sound; loop: true; autoplay: false; positional: false; volume: 1"
         position="0 1.6 0"
+        sound="src: #horror-sound; loop: true; autoplay: false; positional: false; volume: 1"
       ></a-entity>
 
       <!-- دوربین -->
@@ -398,7 +400,7 @@
         light="type: point; intensity: 0.2; distance: 50; decay: 2; color: #f0e6d2"
         position="0 4 0"
       ></a-entity>
-
+     
       <!-- مدل‌ها -->
       <a-entity
         gltf-model="https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/main/2.0/SheenChair/glTF-Binary/SheenChair.glb"
@@ -771,38 +773,66 @@
 
       <!-- اسکریپت‌ها -->
       <script>
-        window.addEventListener('load', function() {
-          const startButton = document.getElementById("startButton");
-          const startOverlay = document.getElementById("startOverlay");
-          const bgSound = document.querySelector("#bgSound");
+        document.addEventListener('DOMContentLoaded', function() {
+          const startButton = document.getElementById('startButton');
+          const startOverlay = document.getElementById('startOverlay');
+          const bgSound = document.querySelector('#bgSound');
           const scene = document.querySelector('a-scene');
 
-          scene.addEventListener('loaded', function() {
-            startButton.addEventListener("click", function() {
-              startOverlay.style.display = "none";
-              
-              // تلاش برای پخش صدا با تعامل کاربر
-              const soundComponent = bgSound.components.sound;
-              if (soundComponent) {
+          // Debug: Log when audio is loaded
+          document.querySelector('#horror-sound').addEventListener('loaded', function() {
+            console.log('Audio file loaded');
+          });
+
+          // Wait for scene to load
+          scene.addEventListener('loaded', function () {
+            console.log('Scene loaded');
+            
+            // Add click event listener to start button
+            startButton.addEventListener('click', function () {
+              console.log('Start button clicked');
+              startOverlay.style.display = 'none';
+
+              // Try to play sound
+              if (bgSound.components.sound) {
                 try {
-                  soundComponent.playSound();
-                  console.log("Attempting to play sound");
+                  const soundComponent = bgSound.components.sound;
+                  
+                  // Create a user interaction promise
+                  const playPromise = soundComponent.playSound();
+                  
+                  if (playPromise !== undefined) {
+                    playPromise
+                      .then(() => {
+                        console.log('Audio started playing successfully');
+                      })
+                      .catch(error => {
+                        console.error('Audio play failed:', error);
+                        // Try alternative play method
+                        try {
+                          bgSound.components.sound.pool.children[0].play();
+                          console.log('Tried alternative play method');
+                        } catch (e) {
+                          console.error('Alternative play method failed:', e);
+                        }
+                      });
+                  }
                 } catch (error) {
-                  console.error("Error playing sound:", error);
+                  console.error('Error playing sound:', error);
                 }
               } else {
-                console.error("Sound component not found");
+                console.error('Sound component not found');
               }
             });
           });
 
-          // اضافه کردن event listener‌های دیباگ
-          bgSound.addEventListener("sound-loaded", function() {
-            console.log("Sound loaded successfully");
+          // Additional debug listeners
+          bgSound.addEventListener('sound-loaded', function() {
+            console.log('A-Frame sound loaded');
           });
 
-          bgSound.addEventListener("sound-ended", function() {
-            console.log("Sound ended");
+          bgSound.addEventListener('sound-ended', function() {
+            console.log('Sound ended');
           });
         });
       </script>
