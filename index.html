@@ -75,7 +75,7 @@
         position="0 1.6 0"
         wasd-controls="acceleration: 20"
       >
-      <!-- <a-camera look-controls> -->
+        <!-- <a-camera look-controls> -->
         <a-camera look-controls="pointerLockEnabled: true">
           <a-cursor
             id="cursor"
@@ -94,11 +94,37 @@
         <img id="wallTexture2" src="wallpaper2.jpg" crossorigin="anonymous" />
       </a-assets>
       <a-entity
-        gltf-model="doorway.glb"
-        position="3 0 -5.80"
+        gltf-model="door.glb"
+        position="4 0 -6"
+        scale="2.5 2.5 2.5"
+        rotation="0 180 0"
+      ></a-entity>
+      <a-entity
+        gltf-model="window.glb"
+        position="0 3 -5.80"
+        scale="0.002 0.0001 0.002"
+        rotation="90 0 0"
+      ></a-entity>
+      <a-entity
+        gltf-model="ghost.glb"
+        position="18 2 2"
+        scale="2 2 2"
+        rotation="0 -130 0"
+        animation="property: position; to: 20 2 2; dir: alternate; dur: 4000; loop: true"
+      ></a-entity>
+      <a-entity
+        gltf-model="smallBlood.glb"
+        position="-3 3 -5.90"
         scale="4 4 4"
         rotation="0 180 0"
       ></a-entity>
+      <a-entity
+        gltf-model="blood.glb"
+        position="1 0.1 -1.90"
+        scale="0.3 0 0.3"
+        rotation="0 180 0"
+      ></a-entity>
+
       <!--samara-->
       <a-entity
         gltf-model="samara.glb"
@@ -320,89 +346,89 @@
       ></a-plane>
 
       <!-- پنجره -->
-      <a-plane
+      <!-- <a-plane
         position="0 2.5 -5.99"
         rotation="0 0 0"
         width="2"
         height="2"
         material="src: #windowTexture; transparent: true"
-      ></a-plane>
+      ></a-plane> -->
       <!-- قاب چوبی دور پنجره (فرانسوی) -->
 
       <!-- قاب بیرونی -->
-      <a-box
+      <!-- <a-box
         position="0 3.5 -5.99"
         depth="0.01"
         height="0.1"
         width="2.1"
         color="#8B4513"
-      ></a-box>
+      ></a-box> -->
       <!-- بالا -->
-      <a-box
+      <!-- <a-box
         position="0 1.5 -5.99"
         depth="0.01"
         height="0.1"
         width="2.1"
         color="#8B4513"
-      ></a-box>
+      ></a-box> -->
       <!-- پایین -->
-      <a-box
+      <!-- <a-box
         position="-1.05 2.5 -5.99"
         depth="0.01"
         height="2.1"
         width="0.1"
         color="#8B4513"
-      ></a-box>
+      ></a-box> -->
       <!-- چپ -->
-      <a-box
+      <!-- <a-box
         position="1.05 2.5 -5.99"
         depth="0.01"
         height="2.1"
         width="0.1"
         color="#8B4513"
-      ></a-box>
+      ></a-box> -->
       <!-- راست -->
 
       <!-- میله‌های تقسیم‌کننده -->
-      <a-box
+      <!-- <a-box
         position="0 2.5 -5.99"
         depth="0.01"
         height="2.1"
         width="0.05"
         color="#8B4513"
-      ></a-box>
+      ></a-box> -->
       <!-- عمودی وسط -->
-      <a-box
+      <!-- <a-box
         position="-0.5 2.5 -5.99"
         depth="0.01"
         height="2.1"
         width="0.02"
         color="#8B4513"
-      ></a-box>
+      ></a-box> -->
       <!-- عمودی چپ -->
-      <a-box
+      <!-- <a-box
         position="0.5 2.5 -5.99"
         depth="0.01"
         height="2.1"
         width="0.02"
         color="#8B4513"
-      ></a-box>
+      ></a-box> -->
       <!-- عمودی راست -->
-      <a-box
+      <!-- <a-box
         position="0 3 -5.99"
         depth="0.01"
         height="0.02"
         width="2.1"
         color="#8B4513"
-      ></a-box>
+      ></a-box> -->
       <!-- افقی بالا -->
-      <a-box
+      <!-- <a-box
         position="0 2 -5.99"
         depth="0.01"
         height="0.02"
         width="2.1"
         color="#8B4513"
-      ></a-box>
+      ></a-box> -->
       <!-- افقی پایین -->
 
       <!-- نور -->
